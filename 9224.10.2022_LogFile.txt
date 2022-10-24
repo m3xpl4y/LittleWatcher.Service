@@ -1,0 +1,17 @@
+2022-10-24 07:28:12.492 +02:00 [INF] IP wird aufgerufen!
+2022-10-24 07:28:12.737 +02:00 [INF] IP lautet 212.95.5.200!
+2022-10-24 07:28:12.846 +02:00 [WRN] Screenshot wird erstellt!
+2022-10-24 07:28:12.909 +02:00 [INF] Screenshot wurde erstellt!
+2022-10-24 07:28:12.917 +02:00 [INF] Email wird gesendet!
+2022-10-24 07:28:13.615 +02:00 [INF] Email wurde gesendet!
+2022-10-24 07:28:13.640 +02:00 [WRN] Screenshot wurde gelöscht
+2022-10-24 07:28:13.641 +02:00 [WRN] IP Änderung fand statt!
+2022-10-24 07:29:55.048 +02:00 [INF] IP wird aufgerufen!
+2022-10-24 07:29:55.296 +02:00 [INF] IP lautet 212.95.5.200!
+2022-10-24 07:29:55.316 +02:00 [WRN] Screenshot wird erstellt!
+2022-10-24 07:29:55.383 +02:00 [INF] Screenshot wurde erstellt!
+2022-10-24 07:29:55.392 +02:00 [INF] Email wird gesendet!
+2022-10-24 07:29:56.105 +02:00 [INF] Email wurde gesendet!
+2022-10-24 07:29:56.137 +02:00 [WRN] Screenshot wurde gelöscht
+2022-10-24 07:29:56.137 +02:00 [WRN] IP Änderung fand statt!
+2022-10-24 07:30:00.089 +02:00 [INF] Nächste IP Überprüfung in 23 Stunden und 29 Minuten
