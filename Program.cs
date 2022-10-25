@@ -30,7 +30,6 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         services.AddHostedService<Worker>();
 
-        services.AddTransient<IScreenCapture, ScreenCapture>();
         services.AddTransient<IIP, IpProvider>();
         services.AddTransient<IEmailService, EmailService>();
         services.AddTransient<IHtmlService, HtmlService>();

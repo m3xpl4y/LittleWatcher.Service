@@ -7,12 +7,10 @@ namespace LittleWatcher.Service.Services;
 
 public class EmailService : IEmailService
 {
-    private readonly IScreenCapture _screenCapture;
     private readonly EmailSettings _emailSettings;
 
-    public EmailService(IScreenCapture screenCapture, EmailSettings emailSettings)
+    public EmailService(EmailSettings emailSettings)
     {
-        _screenCapture = screenCapture;
         _emailSettings = emailSettings;
     }
     public async Task SendMail(string subject, string message, string displayName)
@@ -25,9 +23,7 @@ public class EmailService : IEmailService
             sc.Port = _emailSettings.Port;
             sc.EnableSsl = false;
             sc.Credentials = new System.Net.NetworkCredential(_emailSettings.Email, _emailSettings.Password);
-            Attachment att = new Attachment(_screenCapture.GetPathWithFileName());
             MailMessage msg = new MailMessage();
-            msg.Attachments.Add(att);
 
             msg.From = new MailAddress(_emailSettings.Email, displayName);
             msg.Subject = subject;
@@ -35,7 +31,6 @@ public class EmailService : IEmailService
             msg.Body = message;
             msg.IsBodyHtml = true;
             sc.Send(msg);
-            att.Dispose();
         }
         catch (Exception ex)
         {
