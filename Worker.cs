@@ -12,7 +12,6 @@ namespace LittleWatcher.Service
         private readonly IEmailService _emailService;
         private readonly IHtmlService _htmlService;
         private readonly Settings _settings;
-        private const string PATH = @"C:\temp";
 
         public Worker(IIP ip, IScreenCapture screenCapture, IEmailService emailService, 
             IHtmlService htmlService, Settings settings)
@@ -30,7 +29,6 @@ namespace LittleWatcher.Service
             {
                 if (await IsIpValid(oldIp))
                 {
-                    _screenCapture.GetDirectoryInfo(PATH);
                     Log.Information("IP wird aufgerufen!");
                     var ip = await _ip.GetIp();
                     Log.Information($"IP lautet {ip}!");

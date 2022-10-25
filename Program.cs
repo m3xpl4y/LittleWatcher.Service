@@ -5,7 +5,7 @@ using LittleWatcher.Service.Services;
 using Serilog;
 using Serilog.Events;
 
-string logFileName = @"C\temp\LogFile.txt";
+string logFileName = "LogFile.txt";
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
