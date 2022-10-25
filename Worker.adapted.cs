@@ -14,7 +14,7 @@ public partial class Worker
     }
     private void IpCheck(out int milliseconds)
     {
-        var dailyTime = _settings.Value.TimeOfDay;
+        var dailyTime = _settings.TimeOfDay;
         var timeParts = dailyTime.Split(":");
 
         var dateNow = DateTime.Now;

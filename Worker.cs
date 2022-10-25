@@ -11,20 +11,17 @@ namespace LittleWatcher.Service
         private readonly IScreenCapture _screenCapture;
         private readonly IEmailService _emailService;
         private readonly IHtmlService _htmlService;
-        private readonly IOptions<Settings> _settings;
+        private readonly Settings _settings;
+        private const string PATH = @"C:\temp";
 
         public Worker(IIP ip, IScreenCapture screenCapture, IEmailService emailService, 
-            IHtmlService htmlService, IOptions<Settings> settings)
+            IHtmlService htmlService, Settings settings)
         {
             _ip = ip;
             _screenCapture = screenCapture;
             _emailService = emailService;
             _htmlService = htmlService;
             _settings = settings;
-        }
-        public override Task StartAsync(CancellationToken cancellationToken)
-        {
-            return base.StartAsync(cancellationToken);
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -33,6 +30,7 @@ namespace LittleWatcher.Service
             {
                 if (await IsIpValid(oldIp))
                 {
+                    _screenCapture.GetDirectoryInfo(PATH);
                     Log.Information("IP wird aufgerufen!");
                     var ip = await _ip.GetIp();
                     Log.Information($"IP lautet {ip}!");

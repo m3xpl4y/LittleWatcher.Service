@@ -5,7 +5,7 @@ using LittleWatcher.Service.Services;
 using Serilog;
 using Serilog.Events;
 
-string logFileName = "LogFile.txt";
+string logFileName = @"C\temp\LogFile.txt";
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
@@ -16,17 +16,17 @@ Log.Logger = new LoggerConfiguration()
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService()
-    .ConfigureServices(services =>
+    .ConfigureServices((hostContext, services) =>
     {
-        var builder = new ConfigurationBuilder()
-                                    .SetBasePath(Directory.GetCurrentDirectory())
-                                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                                    .AddEnvironmentVariables();
+        IConfiguration configuration = hostContext.Configuration;
 
-        var configuration = builder.Build();
-        services.Configure<Url>(options => configuration.GetSection("Url").Bind(options));
-        services.Configure<EmailSettings>(options => configuration.GetSection("EmailSettings").Bind(options));
-        services.Configure<Settings>(options => configuration.GetSection("Settings").Bind(options));
+        Url url = configuration.GetSection("Url").Get<Url>();
+        EmailSettings emailSettings = configuration.GetSection("EmailSettings").Get<EmailSettings>();
+        Settings settings = configuration.GetSection("Settings").Get<Settings>();
+
+        services.AddSingleton(url);
+        services.AddSingleton(emailSettings);
+        services.AddSingleton(settings);
 
         services.AddHostedService<Worker>();
 

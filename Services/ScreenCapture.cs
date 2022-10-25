@@ -8,7 +8,7 @@ namespace LittleWatcher.Service.Services;
 public class ScreenCapture : IScreenCapture
 {
     private readonly string FILENAME = "screenshot.jpg";
-    private readonly string _path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+    private readonly string _path = @"C\temp";
     public async Task CaptureScreen()
     {
         Log.Warning("Screenshot wird erstellt!");
@@ -16,9 +16,7 @@ public class ScreenCapture : IScreenCapture
         using (var captureGraphic = Graphics.FromImage(captureBmp))
         {
             captureGraphic.CopyFromScreen(0, 0, 0, 0, captureBmp.Size);
-
             var pathFileName = _path + Path.DirectorySeparatorChar + FILENAME;
-
             captureBmp.Save(pathFileName, ImageFormat.Jpeg);
         }
         Log.Information("Screenshot wurde erstellt!");
@@ -42,8 +40,13 @@ public class ScreenCapture : IScreenCapture
         var files = GetDirectoryInfo().GetFiles(FILENAME, SearchOption.AllDirectories);
         return files.FirstOrDefault(x => x.Name.Equals(FILENAME));
     }
-    private DirectoryInfo GetDirectoryInfo()
+    public DirectoryInfo GetDirectoryInfo(string path = "")
     {
-        return new DirectoryInfo(_path);
+        DirectoryInfo dir = new DirectoryInfo(_path);
+        if (!dir.Exists)
+        {
+            dir.Create();
+        }
+        return dir;
     }
 }
