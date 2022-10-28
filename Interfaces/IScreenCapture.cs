@@ -6,4 +6,5 @@ public interface IScreenCapture
     string GetPathWithFileName();
     FileInfo GetScreenshot();
     void DeleteFile();
+    DirectoryInfo GetDirectoryInfo(string path = "");
 }

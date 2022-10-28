@@ -1,16 +1,14 @@
 ﻿using LittleWatcher.Service.Interfaces;
 using LittleWatcher.Service.Models;
-using Microsoft.Extensions.Options;
-using Serilog;
 using System.Net;
 
 namespace LittleWatcher.Service.Services;
 
 public class IpProvider : IIP
 {
-    private readonly IOptions<Url> _url;
+    private readonly Url _url;
 
-    public IpProvider(IOptions<Url> url)
+    public IpProvider(Url url)
     {
         _url = url;
     }
@@ -28,7 +26,7 @@ public class IpProvider : IIP
     {
         var url = new Url()
         {
-            Website = _url.Value.Website
+            Website = _url.Website
         };
         WebRequest request = WebRequest.Create(url.Website);
         WebResponse response = request.GetResponse();

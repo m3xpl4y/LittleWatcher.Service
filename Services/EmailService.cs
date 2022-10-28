@@ -1,6 +1,5 @@
 ﻿using LittleWatcher.Service.Interfaces;
 using LittleWatcher.Service.Models;
-using Microsoft.Extensions.Options;
 using Serilog;
 using System.Net.Mail;
 
@@ -8,12 +7,10 @@ namespace LittleWatcher.Service.Services;
 
 public class EmailService : IEmailService
 {
-    private readonly IScreenCapture _screenCapture;
-    private readonly IOptions<EmailSettings> _emailSettings;
+    private readonly EmailSettings _emailSettings;
 
-    public EmailService(IScreenCapture screenCapture, IIP ip, IOptions<EmailSettings> emailSettings)
+    public EmailService(EmailSettings emailSettings)
     {
-        _screenCapture = screenCapture;
         _emailSettings = emailSettings;
     }
     public async Task SendMail(string subject, string message, string displayName)
@@ -22,21 +19,18 @@ public class EmailService : IEmailService
         try
         {
             SmtpClient sc = new SmtpClient();
-            sc.Host = _emailSettings.Value.Host;
-            sc.Port = _emailSettings.Value.Port;
+            sc.Host = _emailSettings.Host;
+            sc.Port = _emailSettings.Port;
             sc.EnableSsl = false;
-            sc.Credentials = new System.Net.NetworkCredential(_emailSettings.Value.Email, _emailSettings.Value.Password);
-            Attachment att = new Attachment(_screenCapture.GetPathWithFileName());
+            sc.Credentials = new System.Net.NetworkCredential(_emailSettings.Email, _emailSettings.Password);
             MailMessage msg = new MailMessage();
-            msg.Attachments.Add(att);
 
-            msg.From = new MailAddress(_emailSettings.Value.Email, displayName);
+            msg.From = new MailAddress(_emailSettings.Email, displayName);
             msg.Subject = subject;
-            msg.To.Add(new MailAddress(_emailSettings.Value.EmailRecipient));
+            msg.To.Add(new MailAddress(_emailSettings.EmailRecipient));
             msg.Body = message;
             msg.IsBodyHtml = true;
             sc.Send(msg);
-            att.Dispose();
         }
         catch (Exception ex)
         {
