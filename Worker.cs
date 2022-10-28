@@ -1,5 +1,6 @@
 using LittleWatcher.Service.Interfaces;
 using LittleWatcher.Service.Models;
+using LittleWatcher.Service.Services;
 using Serilog;
 
 namespace LittleWatcher.Service
@@ -29,7 +30,7 @@ namespace LittleWatcher.Service
                     Log.Information("IP wird aufgerufen!");
                     var ip = await _ip.GetIp();
                     Log.Information($"IP lautet {ip}!");
-                    await _emailService.SendMail(_htmlService.Subject("Little Watcher"),
+                    await _emailService.SendMail(_htmlService.Subject("Little Watcher", SystemInformation.UserName),
                                                  _htmlService.Body(ip), "Little Watcher");
 
                     oldIp = ip;
